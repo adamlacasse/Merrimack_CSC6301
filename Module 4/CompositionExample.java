@@ -13,14 +13,17 @@ class Room {
     public String getType() {
         return type;
     }
+
+    public double getArea() {
+        return area;
+    }
 }
 
 class House {
-    private String address;
     private List<Room> rooms; // Composition - House creates and owns rooms
     
     public House(String address) {
-        this.address = address;
+        System.out.println("House at " + address + " is created.");
         this.rooms = new ArrayList<>();
         
         // House creates its own rooms - composition
@@ -48,6 +51,7 @@ public class CompositionExample {
         myHouse.addRoom("Bathroom", 100.0);
         for (Room room : myHouse.getRooms()) {
             System.out.println("Room Type: " + room.getType());
+            System.out.println("Room Area: " + room.getArea() + " sq ft");
         }
     }
 }
