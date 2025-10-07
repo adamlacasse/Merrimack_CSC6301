@@ -1,7 +1,7 @@
 /**
  * BubbleSort implementation of the classic Bubble Sort algorithm.
  * 
- * @author Adam Lacasse
+ * @author Adam LaCasse
  * @version 1.0
  */
 public class BubbleSort {

@@ -1,27 +1,47 @@
-package Project4.lacassea;
+package project5.lacassea;
 
 import java.util.*;
 
 /**
  * NumberSorter is a program that reads integer numbers from standard input
- * and stores them in a LinkedList in sorted order from smallest to largest.
- * 
+ * and stores them in a Stack in sorted order from smallest to largest.
+ *
  * This program demonstrates the use of the Java Collections Framework,
- * specifically LinkedList and Collections.sort() method.
- * 
+ * specifically Stack and Collections.sort() method.
+ *
+ * <p><strong>Design overview</strong></p>
+ * <pre>
+ *  ┌─────────────┐   push()    ┌────────────────┐   Collections.sort()   ┌────────────────────┐
+ *  │ User Input  ├────────────▶│ Stack&lt;Integer&gt;│────────────────────────▶│ displayResults()   │
+ *  └─────────────┘             └────────────────┘                         └────────────────────┘
+ *           ▲                             │                                        │
+ *           └───────────── Scanner ───────┴───────────────────── copy+pop() ───────┘
+ * </pre>
+ * The stack preserves insertion order until sorted, then the program prints both the ascending
+ * list and the LIFO pop view to highlight how the stack structure behaves after sorting.
+ *
  * @author Adam LaCasse
- * @version 1.0
- * @since 2025-09-27
+ * @version 2.0
+ * @since 2025-10-07
  */
 public class NumberSorter {
+
+    /**
+     * Creates a new {@code NumberSorter}. The class is stateless, so the constructor
+     * exists primarily to support instantiation from {@link #main(String[])} and to
+     * provide documented JavaDoc output.
+     */
+    public NumberSorter() {
+        // No state to initialize; the sorter operates through method calls.
+    }
     
     /**
      * Main method that executes the number sorting program.
-     * 
+     *
      * Reads integers from standard input until EOF or non-integer input is encountered.
-     * Stores the numbers in a LinkedList and sorts them in ascending order.
+     * Stores the numbers in a Stack and sorts them in ascending order.
      * Displays the sorted numbers to the user.
-     * 
+     *
      * @param args Command line arguments (not used in this program)
      */
     public static void main(String[] args) {
@@ -31,32 +51,32 @@ public class NumberSorter {
     
     /**
      * Executes the main logic of the program.
-     * 
+     *
      * This method handles the input reading, sorting, and output display.
-     * It uses a LinkedList from the Collections Framework to store the numbers
+     * It uses a Stack from the Collections Framework to store the numbers
      * and Collections.sort() to sort them in ascending order.
      */
     public void run() {
-        LinkedList<Integer> numbers = readNumbers();
+        Stack<Integer> numbers = readNumbers();
         sortNumbers(numbers);
         displayResults(numbers);
     }
     
     /**
-     * Reads integer numbers from standard input and stores them in a LinkedList.
-     * 
+     * Reads integer numbers from standard input and stores them in a Stack.
+     *
      * The method continues reading until:
      * - End of file (EOF) is reached
      * - Non-integer input is encountered
      * - An empty line is entered
-     * 
-     * @return LinkedList<Integer> containing all successfully read numbers
+     *
+     * @return Stack<Integer> containing all successfully read numbers
      */
-    private LinkedList<Integer> readNumbers() {
-        // CODE REUSE: Using java.util.LinkedList - a doubly-linked list implementation
+    private Stack<Integer> readNumbers() {
+        // CODE REUSE: Using java.util.Stack - a LIFO data structure implementation
         // from the Collections Framework. This saves us from implementing our own
-        // linked list data structure with node management, memory allocation, etc.
-        LinkedList<Integer> numbers = new LinkedList<>();
+        // stack data structure with array resizing, node management, etc.
+        Stack<Integer> numbers = new Stack<>();
         
         // CODE REUSE: Using java.util.Scanner for input parsing - leverages existing
         // tokenization and type conversion functionality instead of manually parsing strings
@@ -71,9 +91,9 @@ public class NumberSorter {
                 // input validation and integer parsing logic from Scanner class
                 if (scanner.hasNextInt()) {
                     int number = scanner.nextInt();
-                    // CODE REUSE: LinkedList.add() method reuses existing list manipulation
-                    // logic - no need to implement node creation, linking, or size tracking
-                    numbers.add(number);
+                    // CODE REUSE: Stack.push() method reuses existing stack manipulation
+                    // logic - no need to implement array resizing, node creation, or size tracking
+                    numbers.push(number);
                     System.out.println("Added: " + number);
                 } else {
                     // If next input is not an integer, break the loop
@@ -103,17 +123,17 @@ public class NumberSorter {
     }
     
     /**
-     * Sorts the LinkedList of integers in ascending order using Collections.sort().
-     * 
+     * Sorts the stack of integers in ascending order using Collections.sort().
+     *
      * This method demonstrates the use of the Collections Framework's sorting capability.
-     * The sort is performed in-place, modifying the original LinkedList.
-     * 
-     * @param numbers The LinkedList<Integer> to be sorted
+     * The sort is performed in-place, modifying the original Stack.
+     *
+     * @param numbers The Stack<Integer> to be sorted
      */
-    private void sortNumbers(LinkedList<Integer> numbers) {
-        // CODE REUSE: Using isEmpty() method from Collection interface
+    private void sortNumbers(Stack<Integer> numbers) {
+        // CODE REUSE: Using empty() method from Stack/Vector
         // instead of checking if size() == 0 or implementing custom empty check
-        if (numbers.isEmpty()) {
+        if (numbers.empty()) {
             System.out.println("No numbers to sort.");
             return;
         }
@@ -132,17 +152,17 @@ public class NumberSorter {
     
     /**
      * Displays the sorted numbers to the user.
-     * 
+     *
      * Shows both the count of numbers and the complete sorted list.
      * If no numbers were entered, displays an appropriate message.
-     * 
-     * @param numbers The sorted LinkedList<Integer> to display
+     *
+     * @param numbers The sorted Stack<Integer> to display
      */
-    private void displayResults(LinkedList<Integer> numbers) {
+    private void displayResults(Stack<Integer> numbers) {
         System.out.println("\n" + "=".repeat(50));
         
-        // CODE REUSE: Again using isEmpty() from Collections Framework
-        if (numbers.isEmpty()) {
+        // CODE REUSE: Again using empty() from Stack/Vector
+        if (numbers.empty()) {
             System.out.println("No numbers were entered.");
         } else {
             System.out.println("Sorted numbers (smallest to largest):");
@@ -155,13 +175,25 @@ public class NumberSorter {
             
             // Also display in a more readable format
             System.out.print("List: ");
-            // CODE REUSE: Using enhanced for-loop and get() method from List interface
-            // The get() method reuses LinkedList's internal node traversal logic
-            // instead of manually implementing pointer navigation
+            // CODE REUSE: Using get() method from List interface
+            // The get() method reuses Stack/Vector's internal indexing logic
+            // instead of manually implementing array or pointer navigation
             for (int i = 0; i < numbers.size(); i++) {
-                // CODE REUSE: get(i) leverages LinkedList's existing indexing mechanism
+                // CODE REUSE: get(i) leverages Stack/Vector's existing indexing mechanism
                 System.out.print(numbers.get(i));
                 if (i < numbers.size() - 1) {
+                    System.out.print(" -> ");
+                }
+            }
+            System.out.println();
+
+            // Demonstrate LIFO behavior by popping elements from a copy
+            Stack<Integer> copy = new Stack<>();
+            copy.addAll(numbers);
+            System.out.print("Stack top-to-bottom (pop order): ");
+            while (!copy.empty()) {
+                System.out.print(copy.pop());
+                if (!copy.empty()) {
                     System.out.print(" -> ");
                 }
             }
