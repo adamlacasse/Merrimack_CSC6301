@@ -1,5 +1,4 @@
-# CSC 6301 - Final Exam
-## Adam LaCasse
+# CSC 6301 - Final Exam<br>Adam LaCasse
 
 ### 1. Include the docstrings documentation
 
@@ -68,7 +67,7 @@ class Queue:
         return self.a_out.pop(0)
 ```
 
----
+<div style="page-break-after: always;"></div>
 
 ### 2. Convert from Python to Java
 
@@ -139,7 +138,7 @@ public final class RockPaperScissors {
 }
 ```
 
----
+<div style="page-break-after: always;"></div>
 
 ### 3. Class Diagram
 
@@ -188,7 +187,7 @@ public final class RockPaperScissors {
 └─────────────────────────────┘
 ```
 
----
+<div style="page-break-after: always;"></div>
 
 ### 4. Java Collections
 
@@ -197,8 +196,6 @@ Stack is a legacy LIFO class that extends Vector, so push/pop/peek operate on th
 ### 5. SDLC
 
 Separating development and testing teams provides independent validation, reducing confirmation bias where developers might overlook their own mistakes. Testers bring a fresh perspective focused on breaking the code and uncovering edge cases that developers may not anticipate. This division of responsibilities ensures higher quality assurance, clearer accountability, and better adherence to requirements. It also allows each team to specialize - developers optimize for implementation efficiency, while testers focus on coverage, usability, and defect detection - ultimately delivering more robust and reliable software.
-
----
 
 ### 6. Version Control
 
@@ -211,16 +208,12 @@ pip freeze > requirements.txt
 ```
 This creates a `requirements.txt` file, which is the additional file needed. Others can then perfectly recreate the environment by running `pip install -r requirements.txt`. No changes are needed in the `.py` files themselves.
 
----
-
 ### 7. Profiling
 
 The function that should be optimized is `check(mat)`. Profiling shows it dominates execution time, being called tens of millions of times and accounting for the largest share of total runtime. This function performs nested loops over the matrix, giving it O(n^2) complexity per call, and it is invoked repeatedly within `layer()`. The inner loops count occurrences of 0s and 1s, then check balance conditions—calculations that could potentially be memoized or restructured to avoid redundant matrix scans. Optimizing this part (e.g., precomputing partial sums, caching results, or using vectorized operations) would significantly reduce total execution time.
 
----
+<div style="page-break-after: always;"></div>
 
 ### 8. SDM
 
 Lean is most similar to Waterfall: both can operate as structured, phase‑oriented flows, and Lean optimizes that flow (waste reduction, value‑stream discipline) without requiring short iterations or CI/CD. Agile and DevOps explicitly break phase gates via iteration and continuous delivery. A fair alternate lens says Agile "looks" similar because each sprint contains plan‑build‑test mini‑cycles, but that's procedural resemblance; structurally Agile rejects linear phases — hence Lean remains closer.
-
----
