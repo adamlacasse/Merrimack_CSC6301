@@ -182,12 +182,66 @@ Draw the class diagram for the Java code represented by the following classes.
 
 **Note:** See image in `final-exam-questions.pdf` page 4 for Java classes.
 
+#### Answer:
+
+```
+┌─────────────────────────┐
+│       Person            │
+├─────────────────────────┤
+│ - name: String          │
+│ - age: int              │
+├─────────────────────────┤
+│ + display(): void       │
+└─────────────────────────┘
+           △
+           │
+    ┌──────┴──────┐
+    │             │
+┌───┴──────────┐  ┌─────────────────┐
+│   Student    │  │   Instructor    │
+├──────────────┤  ├─────────────────┤
+│ - major:     │  │ - title: String │
+│   String     │  └─────────────────┘
+└──────────────┘
+    △
+    │
+    │ 0..*
+    │
+┌───┴──────────────────────┐
+│       Course             │
+├──────────────────────────┤
+│ - name: String           │
+│ - credits: int           │
+│ - teacher: Instructor    │◆────────────────────> Instructor
+│ - roster: Student[]      │
+├──────────────────────────┤
+│ + addStudent(Student):   │
+│   void                   │
+│ + display(): void        │
+└──────────────────────────┘
+           △
+           │
+┌──────────┴──────────────────┐
+│      OnlineCourse           │
+├─────────────────────────────┤
+│ - meetingId: String         │
+│ - helper: Person            │◆─────────────────> Person
+└─────────────────────────────┘
+```
+
+#### Reasoning:
+The diagram shows inheritance relationships (hollow triangle arrows): `Student` and `Instructor` both extend `Person`; `OnlineCourse` extends `Course`. Composition relationships (filled diamond) indicate ownership: `Course` has one `Instructor` (`teacher`) and an array of `Student` objects (`roster`); `OnlineCourse` has a `Person` helper. The attributes are marked private (`-`), methods are public (`+`), and multiplicities are shown where applicable (e.g., `0..*` indicates zero or more students). This captures the structure, relationships, and cardinalities of the class hierarchy.
+
 ---
 
 ### 4. Java Collections
 Using your words, explain the structural and Java implementation differences between the Java Collections Stack and Queue. I suggest you limit your answer to no less than 2 lines and to no more than 10 lines (soft limits).
 
----
+#### Answer:
+Stack is a legacy LIFO class that extends Vector, so push/pop/peek operate on the synchronized top element inherited from Vector. Queue is a FIFO interface in `java.util`, typically implemented by LinkedList, PriorityQueue, or ArrayDeque, exposing offer/poll/peek while letting each class decide on synchronization. Because Stack carries Vector’s synchronization overhead, it is slower and less flexible than most queue/deque implementations. Modern Java therefore prefers Deque implementations such as ArrayDeque for both stack-like and queue-like usage instead of the old Stack class.
+
+#### Reasoning:
+Blends structural (class vs. interface), behavioral (LIFO vs. FIFO), and implementation (synchronization, modern Deque guidance) differences so the comparison reflects both classic definitions and current Java practice.
 
 ### 5. SDLC
 Using your words, what is the advantage of having different teams to develop code and to test it? I suggest you limit your answer to no less than 2 lines and to no more than 10 lines (soft limits).
