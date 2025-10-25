@@ -246,10 +246,29 @@ Blends structural (class vs. interface), behavioral (LIFO vs. FIFO), and impleme
 ### 5. SDLC
 Using your words, what is the advantage of having different teams to develop code and to test it? I suggest you limit your answer to no less than 2 lines and to no more than 10 lines (soft limits).
 
+#### Answer:
+Separating development and testing teams provides independent validation, reducing confirmation bias where developers might overlook their own mistakes. Testers bring a fresh perspective focused on breaking the code and uncovering edge cases that developers may not anticipate. This division of responsibilities ensures higher quality assurance, clearer accountability, and better adherence to requirements. It also allows each team to specialize - developers optimize for implementation efficiency, while testers focus on coverage, usability, and defect detection - ultimately delivering more robust and reliable software.
+
+#### Reasoning:
+Highlights the key SDLC benefits: objectivity, specialization, and quality improvement through independent verification, aligning with course discussions on testing phases and team roles.
+
 ---
 
 ### 6. Version Control
 How can we recreate a reusing environment for a Python program that needs packages numpy version 1.18.5 and xlwt version 1.3.0 for running your own code? What command line command is necessary? Do you need additional files? Do you need to make changes in the .py files? I suggest you limit your answer to no less than 2 lines and to no more than 10 lines (soft limits).
+
+#### Answer:
+To recreate a reusable environment, use a virtual environment and a `requirements.txt` file. First, create and activate the environment. Then, install the packages and save them to a file:
+```bash
+python -m venv venv
+source venv/bin/activate  # for macOS/Linux; on Windows: venv\Scripts\activate
+pip install numpy==1.18.5 xlwt==1.3.0
+pip freeze > requirements.txt
+```
+This creates a `requirements.txt` file, which is the additional file needed. Others can then perfectly recreate the environment by running `pip install -r requirements.txt`. No changes are needed in the `.py` files themselves.
+
+#### Reasoning:
+This approach follows best practices by isolating dependencies in a virtual environment and automating the creation of a `requirements.txt` file with `pip freeze`. It directly answers all parts of the question: the necessary commands, the need for an additional file (`requirements.txt`), and confirms no changes are required in the Python source files.
 
 ---
 
@@ -257,6 +276,12 @@ How can we recreate a reusing environment for a Python program that needs packag
 Considering the code below and the obtained output, which function would you consider optimizing? Explain your choice. I suggest you limit your answer to no less than 2 lines and to no more than 10 lines (soft limits).
 
 **Note:** See image in `final-exam-questions.pdf` page 8 for code and profiling output.
+
+#### Answer:
+The function that should be optimized is `check(mat)`. Profiling shows it dominates execution time, being called tens of millions of times and accounting for the largest share of total runtime. This function performs nested loops over the matrix, giving it O(n^2) complexity per call, and it is invoked repeatedly within `layer()`. The inner loops count occurrences of 0s and 1s, then check balance conditions—calculations that could potentially be memoized or restructured to avoid redundant matrix scans. Optimizing this part (e.g., precomputing partial sums, caching results, or using vectorized operations) would significantly reduce total execution time.
+
+#### Reasoning:
+Profiling data directly identifies `check()` as the bottleneck with the highest total time and call count. Its nested structure and frequent invocation make it the primary optimization target, aligning with profiling best practices of addressing functions that dominate execution time.
 
 ---
 
