@@ -288,4 +288,11 @@ Profiling data directly identifies `check()` as the bottleneck with the highest 
 ### 8. SDM
 Which among the methodologies Agile, Lean, and DevOps is more similar (or less different) to the Waterfall methodology? Explain your choice. I suggest you limit your answer to no less than 2 lines and to no more than 10 lines (soft limits).
 
+#### Answer:
+Lean is most similar to Waterfall: both can operate as structured, phase‑oriented flows, and Lean optimizes that flow (waste reduction, value‑stream discipline) without requiring short iterations or CI/CD. Agile and DevOps explicitly break phase gates via iteration and continuous delivery. A fair alternate lens says Agile “looks” similar because each sprint contains plan‑build‑test mini‑cycles, but that’s procedural resemblance; structurally Agile rejects linear phases — hence Lean remains closer.
+
+#### Reasoning:
+This balances clarity and nuance: it states the structural alignment (phase‑oriented flow), contrasts Agile/DevOps mechanisms (iteration, CI/CD), and acknowledges the valid “mini‑waterfall” viewpoint while justifying why Lean is still the closest to Waterfall.
+
 --- 
+
